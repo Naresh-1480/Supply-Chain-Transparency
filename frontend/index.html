@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supply Chain Transparency</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Track Product Origin and Authenticity</h1>
+    </header>
+    
+    <div class="container">
+      <h2>Scan a Product QR Code</h2>
+      <button id="start-scan">Start Scanning</button>
+      <video id="scanner"></video>
+      <div id="product-info">
+        <h3>Product Info</h3>
+        <p id="result">Scan a QR code to see the product information.</p>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
