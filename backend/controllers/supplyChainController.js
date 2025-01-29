@@ -1,23 +1,46 @@
-const Product = require("../models/Product");
+const Product = require('../models/Product');
+const blockchain = require('../controllers/blockchain');
 
-// Controller to add a new product to the supply chain
-exports.addProduct = async (req, res) => {
-  const { name, description, price, status } = req.body;
+// Function to fetch product info
+exports.getProductInfo = async (req, res) => {
+  const qrCodeData = req.params.qrCodeData;
+  
+  // Check in the database first
   try {
-    const newProduct = new Product({ name, description, price, status });
-    await newProduct.save();
-    res.status(201).json(newProduct);
+    const product = await Product.findOne({ qrCodeData });
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    // Fetch blockchain data for authenticity
+    const blockchainData = await blockchain.verifyProductAuthenticity(qrCodeData);
+
+    res.json({
+      origin: product.origin,
+      journey: product.journey,
+      authenticity: blockchainData ? 'Verified' : 'Not Verified',
+    });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ message: 'Error retrieving product info', error: err.message });
+  }
+};
+exports.addProduct = async (req, res) => {
+  try {
+    const { name, origin, journey, qrCodeData } = req.body;
+    const newProduct = new Product({ name, origin, journey, qrCodeData });
+    await newProduct.save();
+    res.status(201).json({ message: "Product added successfully", product: newProduct });
+  } catch (error) {
+    res.status(500).json({ message: "Error adding product", error: error.message });
   }
 };
 
-// Controller to get all products
 exports.getProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    res.status(200).json(products);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching products", error: error.message });
   }
 };
+

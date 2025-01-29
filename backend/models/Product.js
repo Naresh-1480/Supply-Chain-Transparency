@@ -1,11 +1,12 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const productSchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  description: { type: String, required: true },
-  price: { type: Number, required: true },
-  status: { type: String, required: true },  // e.g., "In Transit", "Delivered", etc.
-  timestamp: { type: Date, default: Date.now },
+  origin: { type: String, required: true },
+  journey: { type: String, required: true },
+  qrCodeData: { type: String, unique: true, required: true },
 });
 
-module.exports = mongoose.model("Product", productSchema);
+const Product = mongoose.model('Product', ProductSchema);
+
+module.exports = Product;
