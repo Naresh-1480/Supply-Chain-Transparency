@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 body {
+  background-image:url("spices.jpg");
   height: 100vh;
   font-family: "Poppins", sans-serif;
   margin: 0;
@@ -9,14 +11,18 @@ body {
 }
 
 header {
-  background: linear-gradient(135deg, #2a2e2a, #2e7d32);
-  color: rgb(11, 175, 136);
+  background-color: rgba(79, 102, 91, 0.8);
+  color: rgb(246, 246, 246);
   padding: 20px;
   text-align: center;
   font-size: 24px;
   font-weight: bold;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  border: 2px solid rgb(56, 65, 24);
+}
+
+header h1{
+    font-family: "Roboto Condensed", serif;
+    font-optical-sizing: auto;
 }
 
 .container {
@@ -80,6 +86,6 @@ h3 {
 
 #result {
   font-size: 16px;
-  color: #e3d6d6;
+  color: #ff0000;
   font-weight: bolder;
 }
