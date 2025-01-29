@@ -1,13 +1,11 @@
-// Product.js
 const mongoose = require('mongoose');
 
-const ProductSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  origin: { type: String, required: true },
-  journey: { type: String, required: true },
-  qrCodeData: { type: String, unique: true, required: true },
+const productSchema = new mongoose.Schema({
+  productId: { type: String, required: true, unique: true },
+  origin: String,
+  journey: String,
+  authenticity: String, // Simulated blockchain verification status
 });
 
-const Product = mongoose.model('Product', ProductSchema);
-
+const Product = mongoose.model('Product', productSchema);
 module.exports = Product;

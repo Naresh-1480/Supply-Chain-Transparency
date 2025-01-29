@@ -33,7 +33,7 @@ function scanQRCode() {
     if (qrCode) {
       resultElement.textContent = `Product Information: ${qrCode.data}`;
       stopScanner();
-      fetchProductInfo(qrCode.data);
+      fetchProductInfo(qrCode.data); // Call the function to fetch product details
     } else {
       requestAnimationFrame(scanQRCode);
     }
@@ -51,9 +51,9 @@ function stopScanner() {
 
 function fetchProductInfo(qrCodeData) {
   resultElement.innerHTML = `<p>Fetching product details...</p>`;
-  fetch(`/api/products/${qrCodeData}`)
+  fetch(`http://localhost:5000/api/products/${qrCodeData}`)  // Make sure this matches the backend URL
     .then((response) => {
-      if (!response.ok) throw new Error("Product not found");
+      if (!response.ok) throw new Error('Product not found');
       return response.json();
     })
     .then((data) => {
@@ -61,10 +61,12 @@ function fetchProductInfo(qrCodeData) {
         <strong>Product Info:</strong>
         <p>Origin: ${data.origin}</p>
         <p>Journey: ${data.journey}</p>
-        <p>Authenticity: Verified on the blockchain</p>
+        <p>Authenticity: ${data.authenticity}</p>
       `;
     })
-    .catch(() => {
+    .catch((err) => {
       resultElement.innerHTML = `<p style="color: red;">Error retrieving product info. Try again.</p>`;
+      console.error('Error fetching product info:', err);
     });
 }
+
